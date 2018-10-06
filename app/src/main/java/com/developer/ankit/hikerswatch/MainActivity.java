@@ -15,9 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import java.io.*;
+import java.util.*;
+import java.lang.Exception;
 
 public class MainActivity extends AppCompatActivity {
     LocationManager mLocationManager ;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateLocation(Location location)  {
+    public void updateLocation(Location location) throws Excepion  {
         mLatTextView.setText("Latitude : " + Double.toString(Math.rint(location.getLatitude())));
         mLonTextView.setText("Longitude : " + Double.toString(Math.rint(location.getLongitude())));
         mAccTextView.setText("Accuracy : " + Double.toString(location.getAccuracy()));
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Geocoder mGeoCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
         String address = " Couldn\'t find Address!";
         List<Address> listAddresses = null;
-        try {
+        
             listAddresses = mGeoCoder.getFromLocation(location.getLatitude(), location.getLongitude(),1);
             if(listAddresses!=null && listAddresses.size()>0){
                 address = "Address : ";
@@ -64,10 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             mAddTextView.setText(address);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+       
 
 
     }
